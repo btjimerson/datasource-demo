@@ -13,7 +13,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body onload="setLink()">
+<body>
     <div class="container px-4 py-5">
         <nav class="navbar navbar-expand-md fixed-top navbar-dark" style="background-color: #053B52">
             <div class="container-fluid">
@@ -80,7 +80,7 @@
         <div class="row" th:if="${keyValues != null && dataSourceName != null && dataSourceName != 'all'}">
             <div class="col-4">
                 <form action="/addRecords" method="post">
-                    <input type="hidden" th:value="${dataSourceName}" id="dataSourceName" name="user" />
+                    <input type="hidden" th:value="${dataSourceName}" name="user" />
                     <input type="submit" class="btn btn-success" value="Add more records" />
                 </form>
             </div>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -31,13 +32,8 @@ public class KeyValueController {
 		return "index";
 	}
 
-	@GetMapping("/dataSources/{dataSourceName}")
-	public String getDataSource(@PathVariable String dataSourceName, Model model) {
-
-		Optional<DataSourceContext.DataSource> dataSource = DataSourceContext.DataSource.get(dataSourceName);
-		if (dataSource.isPresent()) {
-			DataSourceContext.setCurrentDataSource(dataSource.get());
-		}
+	@PostMapping("/switchUser")
+	public String switchDataSource(Model model) {
 
 		log.info(String.format("Fetching records from data source [%s]", DataSourceContext.getCurrentDataSource()));
 		List<KeyValue> keyValues = keyValueRepository.findAll(Sort.by(Sort.Direction.ASC, "k"));
@@ -46,39 +42,13 @@ public class KeyValueController {
 		model.addAttribute("message",
 				String.format("%d results for %s", keyValues.size(),
 						DataSourceContext.getCurrentDataSource().getProperName()));
-		model.addAttribute("dataSourceName", dataSourceName);
-
-		return "index";
-
-	}
-
-	@GetMapping("/dataSources/all")
-	public String getAllDataSources(Model model) {
-
-		int dataSourceCount = 1;
-		List<KeyValue> keyValues = new ArrayList<>();
-		for (DataSourceContext.DataSource ds : DataSourceContext.DataSource.values()) {
-			if (dataSourceCount > dataSourceConfiguration.getDataSourceCount())
-				break;
-			DataSourceContext.setCurrentDataSource(ds);
-			keyValues.addAll(keyValueRepository.findAll(Sort.by(Sort.Direction.ASC, "k")));
-			dataSourceCount++;
-		}
-
-		model.addAttribute("keyValues", keyValues);
-		model.addAttribute("message", String.format("%d results for all users", keyValues.size()));
-		model.addAttribute("dataSourceName", "all");
+		model.addAttribute("dataSourceName", DataSourceContext.getCurrentDataSource().getShortName());
 
 		return "index";
 	}
 
-	@GetMapping("/dataSources/{dataSourceName}/add")
-	public String addRecords(@PathVariable String dataSourceName, Model model) {
-
-		Optional<DataSourceContext.DataSource> dataSource = DataSourceContext.DataSource.get(dataSourceName);
-		if (dataSource.isPresent()) {
-			DataSourceContext.setCurrentDataSource(dataSource.get());
-		}
+	@PostMapping("/addRecords")
+	public String addRecords(Model model) {
 
 		for (int i = 0; i < 10; i++) {
 			String id = UUID.randomUUID().toString();
@@ -95,7 +65,7 @@ public class KeyValueController {
 		model.addAttribute("message",
 				String.format("%d results for %s", keyValues.size(),
 						DataSourceContext.getCurrentDataSource().getProperName()));
-		model.addAttribute("dataSourceName", dataSourceName);
+		model.addAttribute("dataSourceName", DataSourceContext.getCurrentDataSource().getShortName());
 
 		return "index";
 

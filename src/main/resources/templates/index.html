@@ -14,8 +14,8 @@
     <script>
         function setLink() {
             let addLink = document.getElementById("addLink");
-            addLink.setAttribute("href", "/dataSources/" + document.getElementById("dataSourceName").value + "/add"
-            );
+            let dataSourceNameInput = document.getElementById("dataSourceName");
+            addLink.setAttribute("href", "/dataSources/" + dataSourceNameInput.value + "/add");
         }
 
         function updateUserAnchor() {

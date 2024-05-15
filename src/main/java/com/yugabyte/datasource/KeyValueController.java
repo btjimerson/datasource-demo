@@ -1,17 +1,15 @@
 package com.yugabyte.datasource;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -25,14 +23,7 @@ public class KeyValueController {
 	@Autowired
 	DataSourceConfiguration dataSourceConfiguration;
 
-	@GetMapping({ "/", "/index" })
-	public String index(Model model) {
-		model.addAttribute("message", "Select a user to show records for");
-		model.addAttribute("dataSourceName", "none");
-		return "index";
-	}
-
-	@PostMapping("/switchUser")
+	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = { "/", "/index", "/switchUser" })
 	public String switchDataSource(Model model) {
 
 		log.info(String.format("Fetching records from data source [%s]", DataSourceContext.getCurrentDataSource()));

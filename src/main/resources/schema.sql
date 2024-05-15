@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS keyvalue;
+CREATE TABLE keyvalue(k TEXT UNIQUE, v TEXT);

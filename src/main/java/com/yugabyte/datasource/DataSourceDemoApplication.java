@@ -10,8 +10,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.extern.apachecommons.CommonsLog;
 
 @SpringBootApplication
@@ -24,8 +22,8 @@ public class DataSourceDemoApplication {
 	@Autowired
 	MultiRoutingDataSource mrds;
 
-	@PersistenceContext
-	EntityManager em;
+	@Autowired
+	DataSourceConfiguration dataSourceConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DataSourceDemoApplication.class, args);
@@ -38,7 +36,7 @@ public class DataSourceDemoApplication {
 
 		for (DataSourceContext.DataSource ds : DataSourceContext.DataSource.values()) {
 
-			if (dataSourceCount > DataSourceConfiguration.DATA_SOURCE_COUNT)
+			if (dataSourceCount > dataSourceConfiguration.getDataSourceCount())
 				break;
 
 			ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();

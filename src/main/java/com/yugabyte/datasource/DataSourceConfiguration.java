@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +22,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.Getter;
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 public class DataSourceConfiguration {
 
-    public static final int DATA_SOURCE_COUNT = 10;
+    @Value("${datasources.count}")
+    @Getter
+    private int dataSourceCount;
 
     @Primary
     @Bean(name = "dataSource1")

@@ -21,6 +21,9 @@ public class KeyValueController {
 	@Autowired
 	private KeyValueRepository keyValueRepository;
 
+	@Autowired
+	DataSourceConfiguration dataSourceConfiguration;
+
 	@GetMapping({ "/", "/index" })
 	public String index(Model model) {
 		model.addAttribute("message", "Select a user to show records for");
@@ -55,7 +58,7 @@ public class KeyValueController {
 		int dataSourceCount = 1;
 		List<KeyValue> keyValues = new ArrayList<>();
 		for (DataSourceContext.DataSource ds : DataSourceContext.DataSource.values()) {
-			if (dataSourceCount > DataSourceConfiguration.DATA_SOURCE_COUNT)
+			if (dataSourceCount > dataSourceConfiguration.getDataSourceCount())
 				break;
 			DataSourceContext.setCurrentDataSource(ds);
 			keyValues.addAll(keyValueRepository.findAll(Sort.by(Sort.Direction.ASC, "k")));

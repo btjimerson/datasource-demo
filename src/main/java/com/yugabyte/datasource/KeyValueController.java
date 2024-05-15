@@ -20,9 +20,6 @@ public class KeyValueController {
 	@Autowired
 	private KeyValueRepository keyValueRepository;
 
-	@Autowired
-	DataSourceConfiguration dataSourceConfiguration;
-
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = { "/", "/index", "/switchUser" })
 	public String switchDataSource(Model model) {
 

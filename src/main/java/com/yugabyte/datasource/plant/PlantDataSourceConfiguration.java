@@ -148,16 +148,26 @@ public class PlantDataSourceConfiguration {
     public DataSource multiRoutingDataSource() {
 
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_1, plant1DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_2, plant2DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_3, plant3DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_4, plant4DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_5, plant5DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_6, plant6DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_7, plant7DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_8, plant8DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_9, plant9DataSource());
-        targetDataSources.put(DataSourceContext.DataSource.PLANT_10, plant10DataSource());
+        if (getDataSourceCount() >= 1)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_1, plant1DataSource());
+        if (getDataSourceCount() >= 2)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_2, plant2DataSource());
+        if (getDataSourceCount() >= 3)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_3, plant3DataSource());
+        if (getDataSourceCount() >= 4)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_4, plant4DataSource());
+        if (getDataSourceCount() >= 5)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_5, plant5DataSource());
+        if (getDataSourceCount() >= 6)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_6, plant6DataSource());
+        if (getDataSourceCount() >= 7)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_7, plant7DataSource());
+        if (getDataSourceCount() >= 8)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_8, plant8DataSource());
+        if (getDataSourceCount() >= 9)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_9, plant9DataSource());
+        if (getDataSourceCount() >= 10)
+            targetDataSources.put(DataSourceContext.DataSource.PLANT_10, plant10DataSource());
 
         MultiRoutingDataSource multiRoutingDataSource = new MultiRoutingDataSource();
         multiRoutingDataSource.setDefaultTargetDataSource(plant1DataSource());

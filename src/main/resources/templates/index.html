@@ -15,10 +15,6 @@
 
 <body>
     <div class="container px-4 py-5">
-        <nav class="navbar navbar-expand-md fixed-top navbar-dark" style="background-color: #053B52">
-            <div class="container-fluid">
-            </div>
-        </nav>
         <div class="text-center py-5 container-fluid">
             <a href="/"><img class="d-block mx-auto mb-4" src="/images/yugabyte-logo.png" style="width: 200px;" /></a>
         </div>
@@ -63,7 +59,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row" th:if="${keyValues != null && currentUser != null}">
+        <div class="row">
             <div class="col-4">
                 <form action="/addRecords" method="post">
                     <input type="hidden" th:value="${currentUser}" name="user" />

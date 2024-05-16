@@ -32,7 +32,7 @@
                         <select class="form-select mb-4" id="user" name="user">
                             <option th:each="userMapping: ${userMappings}" th:value="${userMapping.id}"
                                 th:selected="${currentUser == userMapping.id}">
-                                <span th:text="${userMapping.displayName}" />
+                                <span th:text="${userMapping.displayName} + ' (' + ${userMapping.targetdb} + ')'" />
                             </option>
                         </select>
                     </div>

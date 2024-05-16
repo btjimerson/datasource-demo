@@ -41,7 +41,7 @@ public class DataSourceController {
 		model.addAttribute("message",
 				String.format("%d results for %s", keyValues.size(),
 						DataSourceContext.getCurrentDataSource().getName()));
-		model.addAttribute("userMappings", userMappingRepository.findAll());
+		model.addAttribute("userMappings", userMappingRepository.findAll(Sort.by(Sort.Direction.ASC, "targetdb")));
 		model.addAttribute("currentUser", getCurrentUser(request).getId());
 
 		return "index";
@@ -65,7 +65,7 @@ public class DataSourceController {
 		model.addAttribute("message",
 				String.format("%d results for %s", keyValues.size(),
 						DataSourceContext.getCurrentDataSource().getName()));
-		model.addAttribute("userMappings", userMappingRepository.findAll());
+		model.addAttribute("userMappings", userMappingRepository.findAll(Sort.by(Sort.Direction.ASC, "targetdb")));
 		model.addAttribute("currentUser", getCurrentUser(request).getId());
 
 		return "index";

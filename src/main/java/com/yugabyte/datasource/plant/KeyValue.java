@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.yugabyte.datasource;
+package com.yugabyte.datasource.plant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

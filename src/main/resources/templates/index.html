@@ -30,28 +30,14 @@
                     </div>
                     <div class="col">
                         <select class="form-select mb-4" id="user" name="user">
-                            <option value="tombrady" th:selected="${dataSourceName == 'tombrady'}">Tom Brady</option>
-                            <option value="nickchubb" th:selected="${dataSourceName == 'nickchubb'}">Nick Chubb</option>
-                            <option value="matteberflus" th:selected="${dataSourceName == 'matteberflus'}">Matt Eberflus
-                            </option>
-                            <option value="lebronjames" th:selected="${dataSourceName == 'lebronjames'}">LeBron James
-                            </option>
-                            <option value="tommyjohn" th:selected="${dataSourceName == 'tommyjohn'}">Tommy John</option>
-                            <option value="pacmanjones" th:selected="${dataSourceName == 'pacmanjones'}">Pacman Jones
-                            </option>
-                            <option value="donovanmitchell" th:selected="${dataSourceName == 'donovanmitchell'}">Donovan
-                                Mitchell</option>
-                            <option value="hannahmontana" th:selected="${dataSourceName == 'hannahmontana'}">Hannah
-                                Montana
-                            </option>
-                            <option value="jimsmith" th:selected="${dataSourceName == 'jimsmith'}">Jim Smith</option>
-                            <option value="sallystruthers" th:selected="${dataSourceName == 'sallystruthers'}">Sally
-                                Struthers
+                            <option th:each="userMapping: ${userMappings}" th:value="${userMapping.id}"
+                                th:selected="${currentUser == userMapping.id}">
+                                <span th:text="${userMapping.displayName}" />
                             </option>
                         </select>
                     </div>
                     <div class="col">
-                        <input type="submit" class="btn btn-success" id="updateRecordsAnchor" value="Update Records" />
+                        <input type="submit" class="btn btn-success" name="updateRecords" value="Update Records" />
                     </div>
                 </form>
             </div>
@@ -77,18 +63,14 @@
                 </tbody>
             </table>
         </div>
-        <div class="row" th:if="${keyValues != null && dataSourceName != null && dataSourceName != 'all'}">
+        <div class="row" th:if="${keyValues != null && currentUser != null}">
             <div class="col-4">
                 <form action="/addRecords" method="post">
-                    <input type="hidden" th:value="${dataSourceName}" name="user" />
+                    <input type="hidden" th:value="${currentUser}" name="user" />
                     <input type="submit" class="btn btn-success" value="Add more records" />
                 </form>
             </div>
         </div>
-    </div>
-
-
-
     </div>
 </body>
 

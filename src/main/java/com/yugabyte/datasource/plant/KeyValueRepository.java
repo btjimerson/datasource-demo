@@ -1,4 +1,4 @@
-package com.yugabyte.datasource;
+package com.yugabyte.datasource.plant;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

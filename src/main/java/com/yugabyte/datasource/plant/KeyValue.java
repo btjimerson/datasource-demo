@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Entity for the keyvalue table
+ */
 @Entity
 @Getter
 @Setter

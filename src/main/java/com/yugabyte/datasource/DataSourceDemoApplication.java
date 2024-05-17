@@ -17,6 +17,9 @@ import com.yugabyte.datasource.plant.KeyValueRepository;
 
 import lombok.extern.apachecommons.CommonsLog;
 
+/**
+ * Entry point for the Spring Boot application.
+ */
 @SpringBootApplication
 @CommonsLog
 public class DataSourceDemoApplication {
@@ -25,16 +28,24 @@ public class DataSourceDemoApplication {
 	KeyValueRepository keyValueRepository;
 
 	@Autowired
-	@Qualifier("multiRoutingDataSource")
-	MultiRoutingDataSource multiRoutingDataSource;
+	@Qualifier("plantRoutingDataSource")
+	MultiRoutingDataSource plantRoutingDataSource;
 
 	@Autowired
 	PlantDataSourceConfiguration dataSourceConfiguration;
 
+	/**
+	 * Entry point for the application.
+	 * 
+	 * @param args Any command line arguments passed on start up.
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(DataSourceDemoApplication.class, args);
 	}
 
+	/**
+	 * Creates and populates all of the available data sources on start up.
+	 */
 	@EventListener(ApplicationStartedEvent.class)
 	public void initializeDatabases() {
 
@@ -47,7 +58,7 @@ public class DataSourceDemoApplication {
 
 			ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
 			rdp.addScript(new ClassPathResource("schema.sql"));
-			rdp.execute(multiRoutingDataSource.getResolvedDataSources().get(ds));
+			rdp.execute(plantRoutingDataSource.getResolvedDataSources().get(ds));
 
 			DataSourceContext.setCurrentDataSource(ds);
 			log.info(String.format("Inserting test data into data source [%s]",

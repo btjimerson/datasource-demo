@@ -13,12 +13,22 @@ import com.yugabyte.datasource.common.UserMappingRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Web Interceptor to set the current plant data source based on the selected
+ * user in the view.
+ */
 @Component
 public class UserInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMappingRepository userMappingRepository;
 
+    /**
+     * Sets the current plant data source context based on the user selected.
+     * 
+     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest,
+     *      HttpServletResponse, Object)
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {

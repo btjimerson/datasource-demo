@@ -21,6 +21,9 @@ import com.yugabyte.datasource.plant.KeyValueRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.apachecommons.CommonsLog;
 
+/**
+ * MVC controller for the plant data sources view
+ */
 @Controller
 @CommonsLog
 public class DataSourceController {
@@ -31,6 +34,13 @@ public class DataSourceController {
 	@Autowired
 	private UserMappingRepository userMappingRepository;
 
+	/**
+	 * Gets the KeyValues for the current user context.
+	 * 
+	 * @param request Autowired HttpServletRequest object.
+	 * @param model   Autowired MVC model to populate.
+	 * @return The View object to display.
+	 */
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = { "/", "/index", "/switchUser" })
 	public String switchDataSource(HttpServletRequest request, Model model) {
 
@@ -47,6 +57,13 @@ public class DataSourceController {
 		return "index";
 	}
 
+	/**
+	 * Adds records to the current user's plant database.
+	 * 
+	 * @param request Autowired HttpServletRequest object.
+	 * @param model   Autowired MVC model to populate.
+	 * @return The View object to display.
+	 */
 	@PostMapping("/addRecords")
 	public String addRecords(HttpServletRequest request, Model model) {
 
@@ -72,6 +89,12 @@ public class DataSourceController {
 
 	}
 
+	/**
+	 * Looks up the current UserMapping.
+	 * 
+	 * @param request Autowired HttpServletRequest object.
+	 * @return The current UserMapping for the request.
+	 */
 	private UserMapping getCurrentUser(HttpServletRequest request) {
 
 		String userId = request.getParameter("user");

@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Entity for the user_mapping table
+ */
 @Entity
 @Table(name = "user_mapping")
 @Getter
